@@ -113,4 +113,3 @@ G:\Tanvir Work\Sample Project\Angular -Web API using Token Based Authentication\
 G:\Tanvir Work\Sample Project\Angular -Web API using Token Based Authentication\WebAPI\WebAPI\obj\Debug\WebAPI.csproj.CopyComplete
 G:\Tanvir Work\Sample Project\Angular -Web API using Token Based Authentication\WebAPI\WebAPI\obj\Debug\WebAPI.dll
 G:\Tanvir Work\Sample Project\Angular -Web API using Token Based Authentication\WebAPI\WebAPI\obj\Debug\WebAPI.pdb
-G:\Tanvir Work\Sample Project\Angular -Web API using Token Based Authentication\WebAPI\WebAPI\obj\Debug\WebAPI.csprojAssemblyReference.cache

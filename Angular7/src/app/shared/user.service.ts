@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/map';
 import { User } from './user.model';
+import { element } from '@angular/core/src/render3';
 
 
 @Injectable({
@@ -16,13 +17,14 @@ export class UserService {
 
   }
 
-  registerUser(user: User) {
-    const body: User = {
+  registerUser(user: User, roles: string[]) {
+    const body = {
       UserName: user.UserName,
       Password: user.Password,
       Email: user.Email,
       FirstName: user.FirstName,
-      LastName: user.LastName
+      LastName: user.LastName,
+      Roles: roles
     };
     const requestHeader = new HttpHeaders({ 'No-Auth': 'True' });
     return this.http.post(this.rootUrl + '/api/User/Register', body, { headers: requestHeader });
@@ -37,5 +39,24 @@ export class UserService {
 
   getUserClaims() {
     return this.http.get(this.rootUrl + '/api/GetUserClaims');
+  }
+
+  getAllRoles() {
+    const requestHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.get(this.rootUrl + '/api/GetAllRoles', { headers: requestHeader });
+  }
+
+  roleMatch(allowedRoles): boolean {
+    let isMatch = false;
+    const userRoles: string[] = JSON.parse(localStorage.getItem('userRoles'));
+// tslint:disable-next-line: no-shadowed-variable
+    allowedRoles.forEach(element => {
+      if (userRoles.indexOf(element) > -1) {
+        isMatch = true;
+        return false;
+      }
+    });
+
+    return isMatch;
   }
 }

@@ -13,11 +13,16 @@ export class SignUpComponent implements OnInit {
 
   user: User;
   emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.+\.[a-z]{2,4}]$';
+  roles: any[];
 
   constructor(private userService: UserService, private toaster: ToastrService) { }
 
   ngOnInit() {
     this.resetForm();
+    this.userService.getAllRoles().subscribe((data: any) => {
+      data.forEach(obj => obj.selected = false);
+      this.roles = data;
+    });
   }
 
   resetForm(form?: NgForm) {
@@ -32,10 +37,14 @@ export class SignUpComponent implements OnInit {
       FirstName: '',
       LastName: ''
     };
+    if (this.roles) {
+      this.roles.map(x => x.selected = false);
+    }
   }
 
   OnSubmit(form: NgForm) {
-    this.userService.registerUser(form.value)
+    var x = this.roles.filter(c => c.selected).map(y => y.Name);
+    this.userService.registerUser(form.value, x)
     .subscribe((data: any) => {
       if (data.Succeeded === true) {
         this.resetForm();
@@ -44,6 +53,10 @@ export class SignUpComponent implements OnInit {
         this.toaster.error(data.Errors[0]);
       }
     });
+  }
+
+  updateSelectedRoles(index){
+    this.roles[index].selected = !this.roles[index].selected;
   }
 
 }

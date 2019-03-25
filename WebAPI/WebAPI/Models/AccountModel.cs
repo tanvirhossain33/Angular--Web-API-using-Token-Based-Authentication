@@ -13,5 +13,6 @@ namespace WebAPI.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string LoggedOn { get; set; }
+        public string[] Roles { get; set; }
     }
 }
